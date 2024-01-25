@@ -1,0 +1,41 @@
+version: '1.0'
+services:
+  postgres:
+    container_name: DataBase
+    image: postgres:15.3
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=infopanel
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db-data:/var/lib/postgresql/data
+
+  # pgbackups:
+  #       container_name: Backup
+  #       image: prodrigestivill/postgres-backup-local
+  #       restart: always
+  #       user: postgres:postgres # Optional: see below
+  #       volumes:
+  #           - ./backups:/backups
+  #       links:
+  #           - postgres
+  #       depends_on:
+  #           - postgres
+  #       environment:
+  #           - POSTGRES_HOST=postgres
+  #           - POSTGRES_DB=infopanel
+  #           - POSTGRES_USER=postgres
+  #           - POSTGRES_PASSWORD=postgres
+  #           - POSTGRES_EXTRA_OPTS=-Z6
+  #           - SCHEDULE=@every 1h0m00s
+  #           - BACKUP_KEEP_DAYS=7
+  #           - BACKUP_KEEP_WEEKS=4
+  #           - BACKUP_KEEP_MONTHS=6
+  #           - HEALTHCHECK_PORT=8080
+volumes:
+  db-data:
+    name: db-data
