@@ -33,7 +33,7 @@ CREATE TABLE
         "type" int NOT NULL,
         "order_id" int,
         FOREIGN KEY ("type") REFERENCES "page_type" ("id"),
-        FOREIGN KEY ("parent_id") REFERENCES "pages" ("id")
+        FOREIGN KEY ("parent_id") REFERENCES "pages" ("id") ON DELETE SET NULL
     );
 
 CREATE TABLE
