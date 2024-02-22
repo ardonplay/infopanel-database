@@ -23,7 +23,7 @@ CREATE TABLE "localization_type" (
 
 CREATE TABLE
     "user" (
-        "id" SERIAL PRIMARY KEY,
+        "id" uuid NOT NULL DEFAULT (gen_random_uuid()) PRIMARY KEY,
         "username" varchar UNIQUE NOT NULL,
         "role" int NOT NULL,
         "pass" varchar NOT NULL,
@@ -142,4 +142,6 @@ INSERT INTO "page_content_order" ("page_id", "content_id", "order_id")
 VALUES
 (
     (SELECT page.id FROM "page" LIMIT 1 OFFSET 1), (SELECT id FROM "page_content" LIMIT 1 OFFSET 0), 1
-)
+);
+
+INSERT INTO "user" ("username", "pass", "role") VALUES ('admin', '$2a$12$TaALbtn256eJu/agCXSgpuJdwVymEncysl1UIWE0.acddcCbCB8fe', 1);
